@@ -52,7 +52,7 @@ class Film(object):
     gen = property(get_gen, set_gen, None, None)
 
     def show(self):
-        return f"Id:{self.id}, Titlu:{self.titlu}, Descriere:{self.descriere}, Gen:{self.gen}"
+        return f"Id: {self.id}, Titlu: {self.titlu}, Descriere: {self.descriere}, Gen: {self.gen}"
 
     def __str__(self):
         return f"{self.id},{self.titlu},{self.descriere},{self.gen}"

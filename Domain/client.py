@@ -28,7 +28,7 @@ class Client(object):
     cnp = property(get_cnp, set_cnp, None, None)
 
     def show(self):
-        return f"Id:{self.id}, Nume:{self.nume}, Cnp:{self.cnp}"
+        return f"Id: {self.id}, Nume: {self.nume}, Cnp: {self.cnp}"
     
     def __str__(self):
         return f"{self.id},{self.nume},{self.cnp}"

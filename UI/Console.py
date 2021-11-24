@@ -8,7 +8,8 @@ class Console:
         print("filme[adauga|sterge|modifica|vizualizeaza|cauta]",
               "clienti[adauga|sterge|modifica|vizualizeaza|cauta]",
               "inchiriere|returnare",
-              "rapoarte:\n\tclienti cu filme ordonati dupa nume"
+              "rapoarte:"
+              "\n\tclienti cu filme ordonati dupa nume"
               "\n\tclienti cu filme ordonati dupa numarul de filme inchiriate"
               "\n\tcele mai inchiriate filme"
               "\n\tprimii 30% clienti cu cele mei multe filme",
