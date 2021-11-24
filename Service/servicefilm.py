@@ -29,6 +29,39 @@ class ServiceFilm:
                 return elem
         raise ServiceError("Nu exista astfel de filme!")
 
+    def cautare_titlu(self, titlu):
+        film = Film(1, titlu, "descriere", "gen")
+        ValidatorFilm.valid(film)
+        rez = []
+        for elem in self.__repo.get_all():
+            if elem.titlu == titlu:
+                rez.append(elem)
+        if len(rez) == 0:
+            raise ServiceError("Nu exista astfel de filme!")
+        return rez
+
+    def cautare_descriere(self, descriere):
+        film = Film(1, "titlu", descriere, "gen")
+        ValidatorFilm.valid(film)
+        rez = []
+        for elem in self.__repo.get_all():
+            if elem.descriere == descriere:
+                rez.append(elem)
+        if len(rez) == 0:
+            raise ServiceError("Nu exista astfel de filme!")
+        return rez
+
+    def cautare_gen(self, gen):
+        film = Film(1, "titlu", "descriere", gen)
+        ValidatorFilm.valid(film)
+        rez = []
+        for elem in self.__repo.get_all():
+            if elem.gen == gen:
+                rez.append(elem)
+        if len(rez) == 0:
+            raise ServiceError("Nu exista astfel de filme!")
+        return rez
+
     def vizualizare(self):
         return self.__repo.get_all()
 

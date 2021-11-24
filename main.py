@@ -5,9 +5,13 @@ from Service.serviceinchiriere import ServiceInchiriere
 
 from UI.Console import Console
 
-repofilm = RepoFilm()
-repoclient = RepoClient()
-repoinchiriere = RepoInchiriere()
+# repofilm = RepoFilm()
+# repoclient = RepoClient()
+# repoinchiriere = RepoInchiriere()
+
+repofilm = FileRepoFilm("filme.txt")
+repoclient = FileRepoClient("clienti.txt")
+repoinchiriere = FileRepoInchiriere("inchirieri.txt")
 
 servicefilm = ServiceFilm(repofilm)
 serviceclient = ServiceClient(repoclient)

@@ -1,5 +1,6 @@
 from Domain.inchirieredto import InchiriereDto
 from Validator.validator import ValidatorInchiriereDto
+from Exceptii.exceptions import RepositoryError
 
 class ServiceInchiriere:
     def __init__(self, repoinchiriere, repoclient, repofilm): # constructor
@@ -18,41 +19,55 @@ class ServiceInchiriere:
         self.__repoclient.cauta_id(id_client)
         self.__repofilm.cauta_id(id_film)
         inchirieredto = InchiriereDto(id_client, id_film)
-        self.__repoinchiriere.stergere(inchirieredto.id)
+        self.__repoinchiriere.stergere(inchirieredto)
 
     def __filme_per_client(self): # asociaza filmele clientilor
         rez = {}
+        erase_list = []
         for inchiriere in self.__repoinchiriere.get_all():
-            film = self.__repofilm.cauta_id(inchiriere.id_film)
-            client = self.__repoclient.cauta_id(inchiriere.id_client)
+            try:
+                film = self.__repofilm.cauta_id(inchiriere.id_film)
+                client = self.__repoclient.cauta_id(inchiriere.id_client)
+            except:
+                erase_list.append(inchiriere)
+                continue
             if not client in rez:
                 rez[client] = []
             rez[client].append(film)
+        for elem in erase_list:
+            self.__repoinchiriere.stergere(elem)
         return rez
 
     def __clienti_per_film(self): # asociaza clientii filmelor
         rez = {}
+        erase_list = []
         for inchiriere in self.__repoinchiriere.get_all():
-            film = self.__repofilm.cauta_id(inchiriere.id_film)
-            client = self.__repoclient.cauta_id(inchiriere.id_client)
+            try:
+                film = self.__repofilm.cauta_id(inchiriere.id_film)
+                client = self.__repoclient.cauta_id(inchiriere.id_client)
+            except:
+                erase_list.append(inchiriere)
+                continue
             if not film in rez:
                 rez[film] = []
             rez[film].append(client)
+        for elem in erase_list:
+            self.__repoinchiriere.stergere(elem)
         return rez
 
     def raport_clienti_cu_filme_dupa_nume(self): # clientii ordonati dupa nume, nr de filme inchiriate, cu filmele respective
         rel = self.__filme_per_client()
-        rel = sorted(rel, key=lambda client: client.nume)
+        keys = sorted(rel, key=lambda client: client.nume)
         rez = {}
-        for elem in rel:
+        for elem in keys:
             rez[elem] = rel[elem]
         return rez
 
     def raport_clienti_cu_filme_dupa_nr_filmelor(self): # clientii ordonati dupa nume, nr de filme inchiriate, cu filmele respective
         rel = self.__filme_per_client()
-        rel = sorted(rel, key=lambda client: len(rel[client]))
+        keys = sorted(rel, key=lambda client: len(rel[client]))
         rez = {}
-        for elem in rel:
+        for elem in keys:
             rez[elem] = rel[elem]
         return rez
 
@@ -61,15 +76,16 @@ class ServiceInchiriere:
         rez = sorted(rez, key=lambda film: len(rez[film]), reverse=True)
         return rez
 
-    def raport_primii_clienti_cu_cele_mai_inchiriate_filme(self):
+    def raport_primii_clienti_cu_cele_mai_multe_filme(self):
         '''
             returneaza lista de clienti
             :rtype: list of tuples (nume_client, nr_de_filme_inchiriate)
         '''
         rel = self.__filme_per_client()
-        rel = sorted(rel, key=lambda client: rel[client], reverse=True)
+        keys = sorted(rel, key=lambda client: len(rel[client]), reverse=True)
         rez = []
-        for elem in rel[:len(rel)*30//100]:
-            rez.append((elem.nume, len(rez[elem])))
+        length = round(len(rel)*30/100)
+        for elem in keys[:length]:
+            rez.append((elem.nume, len(rel[elem])))
         return rez
 

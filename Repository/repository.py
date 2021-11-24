@@ -1,8 +1,8 @@
 from Exceptii.exceptions import RepositoryError, DuplicatedIDError
 
 class Repository:
-    def __init__(self, type):
-        self._type = type
+    def __init__(self, tip):
+        self._tip = tip
         self._container = []
 
     def __len__(self):
@@ -18,8 +18,8 @@ class Repository:
         raise RepositoryError("Elementul cu id-ul dat nu a fost gasit!")
 
     def adauga(self, obj):
-        if not isinstance(obj, self._type):
-            raise RepositoryError("Tip gresit!")
+        if not isinstance(obj, self._tip):
+            raise TypeError("Tip gresit la adaugare in repository!")
         for elem in self._container:
             if elem == obj:
                 raise DuplicatedIDError("Id duplicat!")
@@ -44,46 +44,46 @@ class Repository:
         if not gasit: raise RepositoryError("Elementul nu poate fi gasit!")
 
 class FileRepository(Repository):
-    def __init__(self, type, file):
-        super().__init__(type)
+    def __init__(self, tip, file):
+        Repository.__init__(self, tip)
         self.__file = file
 
-    def __read_from_file(self):
+    def _read_from_file(self):
         with open(self.__file, 'r') as f:
             self._container = []
             for line in f:
                 line = line.strip()
-                obj = self._type.fromStr(line)
+                obj = self._tip.fromStr(line)
                 self._container.append(obj)
 
-    def __write_to_file(self):
+    def _write_to_file(self):
         with open(self.__file, 'w') as f:
             for elem in self._container:
                 f.write(str(elem)+"\n")
 
     def __len__(self):
-        self.__read_from_file()
+        self._read_from_file()
         return Repository.__len__(self)
 
     def get_all(self):
-        self.__read_from_file()
+        self._read_from_file()
         return Repository.get_all(self)
 
     def cauta_id(self, id):
-        self.__read_from_file()
+        self._read_from_file()
         return Repository.cauta_id(self, id)
 
     def adauga(self, obj):
-        self.__read_from_file()
+        self._read_from_file()
         super(FileRepository, self).adauga(obj)
-        self.__write_to_file()
+        self._write_to_file()
 
     def stergere(self, id):
-        self.__read_from_file()
+        self._read_from_file()
         super(FileRepository, self).stergere(id)
-        self.__write_to_file()
+        self._write_to_file()
 
     def modificare(self, id, obj):
-        self.__read_from_file()
+        self._read_from_file()
         super(FileRepository, self).modificare(id, obj)
-        self.__write_to_file()
+        self._write_to_file()
