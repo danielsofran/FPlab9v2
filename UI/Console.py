@@ -8,10 +8,10 @@ class Console:
         print("filme[adauga|sterge|modifica|vizualizeaza|cauta]",
               "clienti[adauga|sterge|modifica|vizualizeaza|cauta]",
               "inchiriere|returnare",
-              "rapoarte[clienti cu filme ordonati dupa nume|"
-              "clienti cu filme ordonati dupa numarul de filme inchiriate|"
-              "cele mai inchiriate filme|"
-              "primii 30% clienti cu cele mei multe filme]",
+              "rapoarte:\n\tclienti cu filme ordonati dupa nume"
+              "\n\tclienti cu filme ordonati dupa numarul de filme inchiriate"
+              "\n\tcele mai inchiriate filme"
+              "\n\tprimii 30% clienti cu cele mei multe filme",
               "exit",
               sep='\n')
     #region Film
