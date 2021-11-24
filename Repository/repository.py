@@ -1,8 +1,8 @@
 from Exceptii.exceptions import RepositoryError, DuplicatedIDError
 
 class Repository:
-    def __init__(self, type):
-        self._type = type
+    def __init__(self, tip):
+        self._tip = tip
         self._container = []
 
     def __len__(self):
@@ -18,7 +18,8 @@ class Repository:
         raise RepositoryError("Elementul cu id-ul dat nu a fost gasit!")
 
     def adauga(self, obj):
-        if not isinstance(obj, self._type):
+        if not isinstance(obj, self._tip):
+            print(obj)
             raise RepositoryError("Tip gresit!")
         for elem in self._container:
             if elem == obj:
@@ -44,8 +45,8 @@ class Repository:
         if not gasit: raise RepositoryError("Elementul nu poate fi gasit!")
 
 class FileRepository(Repository):
-    def __init__(self, type, file):
-        super().__init__(type)
+    def __init__(self, tip, file):
+        Repository.__init__(self, tip)
         self.__file = file
 
     def __read_from_file(self):
@@ -53,7 +54,7 @@ class FileRepository(Repository):
             self._container = []
             for line in f:
                 line = line.strip()
-                obj = self._type.fromStr(line)
+                obj = self._tip.fromStr(line)
                 self._container.append(obj)
 
     def __write_to_file(self):

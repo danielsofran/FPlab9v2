@@ -1,0 +1,4 @@
+1,Arthur,fain,actiune
+2,The council,5 stele,educativ
+3,Fantasy,naspa,romantic
+6,Dorin,urat,istoric

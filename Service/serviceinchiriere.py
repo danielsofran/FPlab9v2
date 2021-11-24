@@ -42,17 +42,17 @@ class ServiceInchiriere:
 
     def raport_clienti_cu_filme_dupa_nume(self): # clientii ordonati dupa nume, nr de filme inchiriate, cu filmele respective
         rel = self.__filme_per_client()
-        rel = sorted(rel, key=lambda client: client.nume)
+        keys = sorted(rel, key=lambda client: client.nume)
         rez = {}
-        for elem in rel:
+        for elem in keys:
             rez[elem] = rel[elem]
         return rez
 
     def raport_clienti_cu_filme_dupa_nr_filmelor(self): # clientii ordonati dupa nume, nr de filme inchiriate, cu filmele respective
         rel = self.__filme_per_client()
-        rel = sorted(rel, key=lambda client: len(rel[client]))
+        keys = sorted(rel, key=lambda client: len(rel[client]))
         rez = {}
-        for elem in rel:
+        for elem in keys:
             rez[elem] = rel[elem]
         return rez
 
@@ -67,9 +67,10 @@ class ServiceInchiriere:
             :rtype: list of tuples (nume_client, nr_de_filme_inchiriate)
         '''
         rel = self.__filme_per_client()
-        rel = sorted(rel, key=lambda client: rel[client], reverse=True)
+        keys = sorted(rel, key=lambda client: len(rel[client]), reverse=True)
         rez = []
-        for elem in rel[:len(rel)*30//100]:
-            rez.append((elem.nume, len(rez[elem])))
+        length = round(len(rel)*30/100)
+        for elem in keys[:length]:
+            rez.append((elem.nume, len(rel[elem])))
         return rez
 
