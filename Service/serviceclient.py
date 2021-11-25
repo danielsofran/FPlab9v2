@@ -53,6 +53,28 @@ class ServiceClient:
             raise ServiceError("Nu exista astfel de clienti!")
         return rez
 
+    def cautare_nume(self, nume):
+        client = Client(1, nume, "1111111111111")
+        ValidatorClient.valid(client)
+        rez = []
+        for elem in self.__repo.get_all():
+            if elem.nume == nume:
+                rez.append(elem)
+        if len(rez) == 0:
+            raise ServiceError("Nu exista astfel de clienti!")
+        return rez
+
+    def cautare_cnp(self, cnp):
+        client = Client(1, "nume", cnp)
+        ValidatorClient.valid(client)
+        rez = []
+        for elem in self.__repo.get_all():
+            if elem.cnp == cnp:
+                rez.append(elem)
+        if len(rez) == 0:
+            raise ServiceError("Nu exista astfel de clienti!")
+        return rez
+
     def vizualizare(self):
         return self.__repo.get_all()
 
