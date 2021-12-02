@@ -1,6 +1,7 @@
+import functools
+
 from Domain.inchirieredto import InchiriereDto
 from Validator.validator import ValidatorInchiriereDto
-from Exceptii.exceptions import RepositoryError
 
 class ServiceInchiriere:
     def __init__(self, repoinchiriere, repoclient, repofilm): # constructor
@@ -76,7 +77,7 @@ class ServiceInchiriere:
         rez = sorted(rez, key=lambda film: len(rez[film]), reverse=True)
         return rez
 
-    def raport_primii_clienti_cu_cele_mai_multe_filme(self):
+    def raport_primii_clienti_cu_cele_mai_multe_filme(self): # primiii 30% clienti_cu_cele_mai_multe_filme
         '''
             returneaza lista de clienti
             :rtype: list of tuples (nume_client, nr_de_filme_inchiriate)
@@ -88,4 +89,30 @@ class ServiceInchiriere:
         for elem in keys[:length]:
             rez.append((elem.nume, len(rel[elem])))
         return rez
+
+    def raport_cele_mai_putin_inchiriate_filme_care_incep_cu_un_string_dat(self, string_dat):
+        # 50% cele_mai_putin_inchiriate_filme_care_incep_cu_un_string_dat
+        rel = self.__clienti_per_film()
+        def cmp(film1, film2):
+            if len(rel[film1]) > len(rel[film2]):
+                return -1
+            elif len(rel[film1]) > len(rel[film2]):
+                return 1
+            else:
+                if film1.titlu < film2.titlu:
+                    return -1
+                elif film1.titlu > film2.titlu:
+                    return 1
+                return 0
+        filme = sorted(rel, key=functools.cmp_to_key(cmp))
+        to_remove = []
+        for elem in filme:
+            if not elem.titlu.startswith(string_dat):
+                to_remove.append(elem)
+        for elem in to_remove:
+            filme.remove(elem)
+        length = round(len(filme) * 50 / 100)
+        filme = filme[:length]
+        return filme
+
 

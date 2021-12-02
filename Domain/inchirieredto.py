@@ -27,4 +27,4 @@ class InchiriereDto:
     @classmethod
     def fromStr(cls, str):
         sir = str.strip().split(',')
-        return cls(int(sir[0]), int(sir[1]))
+        return cls(int(sir[1]), int(sir[0]))

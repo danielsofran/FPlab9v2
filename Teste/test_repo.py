@@ -37,6 +37,7 @@ class TestRepoFilm(unittest.TestCase):
         self.r.adauga(self.l[0])
         self.r.stergere(1)
         self.assertEqual(len(self.r), 0)
+        self.assertRaises(RepositoryError, self.r.stergere, 1)
 
     def test_cauta(self):
         for obj in self.l:
@@ -44,6 +45,7 @@ class TestRepoFilm(unittest.TestCase):
         self.assertEqual(self.r.cauta_id(1), self.l[0])
         self.assertEqual(self.r.cauta_id(2), self.l[1])
         self.assertEqual(self.r.cauta_id(3), self.l[2])
+        self.assertRaises(RepositoryError, self.r.cauta_id, 4)
 
 class TestRepoClient(unittest.TestCase):
     def setUp(self) -> None:
@@ -76,6 +78,7 @@ class TestRepoClient(unittest.TestCase):
         self.r.adauga(self.l[0])
         self.r.stergere(1)
         self.assertEqual(len(self.r), 0)
+        self.assertRaises(RepositoryError, self.r.stergere, 1)
 
     def test_cauta(self):
         for obj in self.l:
@@ -83,6 +86,7 @@ class TestRepoClient(unittest.TestCase):
         self.assertEqual(self.r.cauta_id(1), self.l[0])
         self.assertEqual(self.r.cauta_id(2), self.l[1])
         self.assertEqual(self.r.cauta_id(3), self.l[2])
+        self.assertRaises(RepositoryError, self.r.cauta_id, 4)
 
 class TestRepoInchirieriDto(unittest.TestCase):
     def setUp(self) -> None:
@@ -115,6 +119,7 @@ class TestRepoInchirieriDto(unittest.TestCase):
         self.r.adauga(self.l[0])
         self.r.stergere(self.l[0])
         self.assertEqual(len(self.r), 0)
+        self.assertRaises(RepositoryError, self.r.stergere, 1)
 
     def test_cauta(self):
         for obj in self.l:
@@ -122,6 +127,7 @@ class TestRepoInchirieriDto(unittest.TestCase):
         self.assertEqual(self.r.cauta_id(self.l[0].id), self.l[0])
         self.assertEqual(self.r.cauta_id(self.l[1].id), self.l[1])
         self.assertEqual(self.r.cauta_id(self.l[2].id), self.l[2])
+        self.assertRaises(RepositoryError, self.r.cauta_id, 4)
 
 if __name__ == '__main__':
     unittest.main()

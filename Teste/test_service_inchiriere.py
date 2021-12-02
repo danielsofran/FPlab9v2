@@ -97,5 +97,24 @@ class TestServiceInchiriere(unittest.TestCase):
         self.assertEqual(dnume, self.lc[0].nume)
         self.assertEqual(dnr, 3)
 
+    def test_raport_4(self):
+        self.sf.adauga(4, "Abis", "a", "b")
+        self.sf.adauga(5, "Aba", "c", "d")
+        self.sf.adauga(6, "Abanos", "e", "f")
+        self.sf.adauga(7, "Abai", "g", "h")
+        self.sc.adauga(4, "Ninja", "3429997067543")
+        self.assertEqual(len(self.rf), 7)
+        self.assertEqual(len(self.rc), 4)
+        self.si.inchiriaza(1, 4)
+        self.si.inchiriaza(2, 2)
+        self.si.inchiriaza(1, 5)
+        self.si.inchiriaza(2, 6)
+        self.si.inchiriaza(3, 7)
+        self.si.inchiriaza(4, 4)
+        filme = self.si.raport_cele_mai_putin_inchiriate_filme_care_incep_cu_un_string_dat("Ab")
+        self.assertEqual(len(filme), 2)
+        self.assertEqual(filme[0], Film(5, "Aba", "c", "d"))
+        self.assertEqual(filme[1], Film(7, "Abai", "g", "h"))
+
 if __name__ == '__main__':
     unittest.main()

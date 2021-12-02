@@ -9,9 +9,9 @@ from UI.Console import Console
 # repoclient = RepoClient()
 # repoinchiriere = RepoInchiriere()
 
-repofilm = FileRepoFilm("filme.txt")
-repoclient = FileRepoClient("clienti.txt")
-repoinchiriere = FileRepoInchiriere("inchirieri.txt")
+repofilm = FileRepoFilm("Files/filme.txt")
+repoclient = FileRepoClient("Files/clienti.txt")
+repoinchiriere = FileRepoInchiriere("Files/inchirieri.txt")
 
 servicefilm = ServiceFilm(repofilm)
 serviceclient = ServiceClient(repoclient)

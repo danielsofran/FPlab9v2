@@ -82,7 +82,7 @@ class TestServiceClient(unittest.TestCase):
         self.assertRaises(ValidationError, self.s.cautare_cnp, "35463789205600")
         self.assertRaises(ServiceError, self.s.cautare_cnp, "3546378920565")
 
-    def test_vizualizare(self):
+    def test_vizualizare(self): # metoda testata black box
         for i in range(3):
             self.r.adauga(self.l[i])
         self.assertEqual(len(self.r), 3)

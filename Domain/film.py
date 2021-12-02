@@ -19,52 +19,51 @@ class Film(object):
         self.__descriere = descriere
         self.__gen = gen
 
-    def get_id(self):
+    def get_id(self): # getter id
         return self.__id
 
 
-    def get_titlu(self):
+    def get_titlu(self): # getter titlu
         return self.__titlu
 
 
-    def get_descriere(self):
+    def get_descriere(self): # getter descriere
         return self.__descriere
 
 
-    def get_gen(self):
+    def get_gen(self): # getter gen
         return self.__gen
-    
 
-    def set_titlu(self, value):
+
+    def set_titlu(self, value): # setter titlu
         self.__titlu = value
 
 
-    def set_descriere(self, value):
+    def set_descriere(self, value): # setter descriere
         self.__descriere = value
 
 
-    def set_gen(self, value):
+    def set_gen(self, value): # setter gen
         self.__gen = value
 
-    id = property(get_id, None, None, None)
-    titlu = property(get_titlu, set_titlu, None, None)
-    descriere = property(get_descriere, set_descriere, None, None)
-    gen = property(get_gen, set_gen, None, None)
+    id = property(get_id, None, None, None) # proprietate id
+    titlu = property(get_titlu, set_titlu, None, None) # proprietate titlu
+    descriere = property(get_descriere, set_descriere, None, None) # proprietate descriere
+    gen = property(get_gen, set_gen, None, None) # proprietate gen
 
-    def show(self):
+    def show(self): # functie pentru afisarea unui film
         return f"Id: {self.id}, Titlu: {self.titlu}, Descriere: {self.descriere}, Gen: {self.gen}"
 
-    def __str__(self):
+    def __str__(self): # functie pt codarea unui film ca string
         return f"{self.id},{self.titlu},{self.descriere},{self.gen}"
 
-    def __eq__(self, other):
+    def __eq__(self, other): # operator de egalitate
         return self.id == other.id
 
-    def __hash__(self):
+    def __hash__(self): # fct hash
         return self.id
-    
+
     @classmethod
-    def fromStr(cls, str):
+    def fromStr(cls, str): # functie de conversie din string
         sir = str.split(',')
         return cls(int(sir[0]), sir[1], sir[2], sir[3])
-        

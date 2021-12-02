@@ -3,25 +3,25 @@ from Exceptii.exceptions import ServiceError
 from Validator.validator import ValidatorClient
 
 class ServiceClient:
-    def __init__(self, repo):
+    def __init__(self, repo): # constructor, repo - repository-ul asociat clasei
         self.__repo = repo
 
-    def adauga(self, id, nume, cnp):
+    def adauga(self, id, nume, cnp): #formare, validare si adaugare in repo
         client = Client(id, nume, cnp)
         ValidatorClient.valid(client)
         self.__repo.adauga(client)
 
-    def stergere(self, id):
+    def stergere(self, id): # validare id, stergere acolo unde exista
         client = Client(id, "nume", "1111111111111")
         ValidatorClient.valid(client)
         self.__repo.stergere(id)
 
-    def modificare(self, id, nume, cnp):
+    def modificare(self, id, nume, cnp): # modificare nume si cnp al obiectului cu id-ul dat
         client = Client(id, nume, cnp)
         ValidatorClient.valid(client)
         self.__repo.modificare(id, client)
 
-    def cautare(self, id):
+    def cautare(self, id): # cauta un client dupa id
         client = Client(id, "nume", "1111111111111")
         ValidatorClient.valid(client)
         rez = []
@@ -31,7 +31,7 @@ class ServiceClient:
         if len(rez) == 0:
             raise ServiceError("Nu exista astfel de clienti!")
 
-    def cautare_nume(self, nume):
+    def cautare_nume(self, nume): # cauta un client dupa nume
         client = Client(1, nume, "1111111111111")
         ValidatorClient.valid(client)
         rez = []
@@ -42,7 +42,7 @@ class ServiceClient:
             raise ServiceError("Nu exista astfel de clienti!")
         return rez
 
-    def cautare_cnp(self, cnp):
+    def cautare_cnp(self, cnp): # cauta un client dupa cnp
         client = Client(1, "nume", cnp)
         ValidatorClient.valid(client)
         rez = []
@@ -53,29 +53,7 @@ class ServiceClient:
             raise ServiceError("Nu exista astfel de clienti!")
         return rez
 
-    def cautare_nume(self, nume):
-        client = Client(1, nume, "1111111111111")
-        ValidatorClient.valid(client)
-        rez = []
-        for elem in self.__repo.get_all():
-            if elem.nume == nume:
-                rez.append(elem)
-        if len(rez) == 0:
-            raise ServiceError("Nu exista astfel de clienti!")
-        return rez
-
-    def cautare_cnp(self, cnp):
-        client = Client(1, "nume", cnp)
-        ValidatorClient.valid(client)
-        rez = []
-        for elem in self.__repo.get_all():
-            if elem.cnp == cnp:
-                rez.append(elem)
-        if len(rez) == 0:
-            raise ServiceError("Nu exista astfel de clienti!")
-        return rez
-
-    def vizualizare(self):
+    def vizualizare(self): # toti clientii
         return self.__repo.get_all()
 
 

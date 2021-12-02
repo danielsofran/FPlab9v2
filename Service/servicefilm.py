@@ -3,25 +3,25 @@ from Exceptii.exceptions import ServiceError
 from Validator.validator import ValidatorFilm
 
 class ServiceFilm:
-    def __init__(self, repo):
+    def __init__(self, repo): # service de filme, repo - repository-ul asociat
         self.__repo = repo
 
-    def adauga(self, id, titlu, descriere, gen):
+    def adauga(self, id, titlu, descriere, gen): # creare, validare, adaugare de film
         film = Film(id, titlu, descriere, gen)
         ValidatorFilm.valid(film)
         self.__repo.adauga(film)
 
-    def stergere(self, id):
+    def stergere(self, id): # validare id, stergere film dupa id
         film = Film(id, "titlu", "descriere", "gen")
         ValidatorFilm.valid(film)
         self.__repo.stergere(id)
 
-    def modificare(self, id, titlu, descriere, gen):
+    def modificare(self, id, titlu, descriere, gen): # actualizare film dupa id, validare actualizare
         film = Film(id, titlu, descriere, gen)
         ValidatorFilm.valid(film)
         self.__repo.modificare(id, film)
 
-    def cautare(self, id):
+    def cautare(self, id): # cautare dupa id
         film = Film(id, "titlu", "descriere", "gen")
         ValidatorFilm.valid(film)
         for elem in self.__repo.get_all():
@@ -29,7 +29,7 @@ class ServiceFilm:
                 return elem
         raise ServiceError("Nu exista astfel de filme!")
 
-    def cautare_titlu(self, titlu):
+    def cautare_titlu(self, titlu): # cautare fupa titlu
         film = Film(1, titlu, "descriere", "gen")
         ValidatorFilm.valid(film)
         rez = []
@@ -40,7 +40,7 @@ class ServiceFilm:
             raise ServiceError("Nu exista astfel de filme!")
         return rez
 
-    def cautare_descriere(self, descriere):
+    def cautare_descriere(self, descriere): # cautare dupa descriere
         film = Film(1, "titlu", descriere, "gen")
         ValidatorFilm.valid(film)
         rez = []
@@ -51,7 +51,7 @@ class ServiceFilm:
             raise ServiceError("Nu exista astfel de filme!")
         return rez
 
-    def cautare_gen(self, gen):
+    def cautare_gen(self, gen): # cautare dupa gen
         film = Film(1, "titlu", "descriere", gen)
         ValidatorFilm.valid(film)
         rez = []
@@ -62,7 +62,7 @@ class ServiceFilm:
             raise ServiceError("Nu exista astfel de filme!")
         return rez
 
-    def vizualizare(self):
+    def vizualizare(self): # functie care returneaza toate filmele
         return self.__repo.get_all()
 
 
