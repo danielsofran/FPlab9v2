@@ -55,7 +55,7 @@ class Film(object):
         return f"Id: {self.id}, Titlu: {self.titlu}, Descriere: {self.descriere}, Gen: {self.gen}"
 
     def __str__(self): # functie pt codarea unui film ca string
-        return f"{self.id},{self.titlu},{self.descriere},{self.gen}"
+        return f"{self.id}\n{self.titlu}\n{self.descriere}\n{self.gen}"
 
     def __eq__(self, other): # operator de egalitate
         return self.id == other.id
@@ -65,5 +65,5 @@ class Film(object):
 
     @classmethod
     def fromStr(cls, str): # functie de conversie din string
-        sir = str.split(',')
+        sir = str.split('\n')
         return cls(int(sir[0]), sir[1], sir[2], sir[3])

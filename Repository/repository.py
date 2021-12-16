@@ -48,7 +48,7 @@ class Repository: # clasa de baza pt repository
         if not gasit: raise RepositoryError("Elementul nu poate fi gasit!")
 
 class FileRepository(Repository): # repository asociat unui fisier
-    def __init__(self, tip, file):
+    def __init__(self, tip, file, number_of_lines): # constructor
         """
         creeaza un repository asociat cu un fisier dat
         :param tip: clasa/tip de date
@@ -56,13 +56,18 @@ class FileRepository(Repository): # repository asociat unui fisier
         """
         Repository.__init__(self, tip)
         self.__file = file
+        self.__number_of_lines = number_of_lines
 
     def _read_from_file(self): # citire din fisier
         with open(self.__file, 'r') as f:
             self._container = []
-            for line in f:
-                line = line.strip()
-                obj = self._tip.fromStr(line)
+            lines = f.readlines()
+            while len(lines)>0:
+                sir = ""
+                for i in range(self.__number_of_lines):
+                    sir += lines[0]
+                    lines.pop(0)
+                obj = self._tip.fromStr(sir)
                 self._container.append(obj)
 
     def _write_to_file(self): # scriere in fisier

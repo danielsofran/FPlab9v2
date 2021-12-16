@@ -19,12 +19,12 @@ class InchiriereDto:
         return self.id_film == other.id_film and self.id_client == other.id_client
 
     def __str__(self):
-        return f"{self.__id_film},{self.__id_client}"
+        return f"{self.__id_film}\n{self.__id_client}"
 
     def __hash__(self):
         return self.id
 
     @classmethod
     def fromStr(cls, str):
-        sir = str.strip().split(',')
+        sir = str.strip().split('\n')
         return cls(int(sir[1]), int(sir[0]))

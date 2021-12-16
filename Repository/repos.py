@@ -14,11 +14,11 @@ class RepoClient(Repository): # repository de clienti
 
 class FileRepoFilm(FileRepository): # repository de filme dintr-un fisier
     def __init__(self, file): # constructor
-        super(FileRepoFilm, self).__init__(Film, file)
+        super(FileRepoFilm, self).__init__(Film, file, 4)
 
 class FileRepoClient(FileRepository): # repository de clienti dintr-un fisier
     def __init__(self, file): # constructor
-        super(FileRepoClient, self).__init__(Client, file)
+        super(FileRepoClient, self).__init__(Client, file, 3)
 
 class RepoInchiriere(Repository): # repository inchiriere ca DTO
     def __init__(self): # constructor
@@ -34,7 +34,7 @@ class RepoInchiriere(Repository): # repository inchiriere ca DTO
 
 class FileRepoInchiriere(FileRepository): # repository inchiriere ca DTO dintr-un fisier
     def __init__(self, file): # constructor
-        super(FileRepoInchiriere, self).__init__(InchiriereDto, file)
+        super(FileRepoInchiriere, self).__init__(InchiriereDto, file, 2)
 
     def stergere(self, inchiriere): # functia de stergere va avea ca parametru o inchiriere, adica ambele id-uri, nu doar un id
         self._read_from_file()

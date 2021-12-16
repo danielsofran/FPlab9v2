@@ -31,8 +31,8 @@ class TestFilm(unittest.TestCase):
         self.assertEqual(self.__f1 == self.__f2, False)
         self.__f3 = self.__f1
         self.assertEqual(self.__f1, self.__f3)
-        self.assertEqual(str(self.__f1), "1,Arthur,fain,actiune")
-        self.assertEqual(self.__f1, Film.fromStr("1,Arthur,fain,actiune"))
+        self.assertEqual(str(self.__f1), "1\nArthur\nfain\nactiune")
+        self.assertEqual(self.__f1, Film.fromStr("1\nArthur\nfain\nactiune"))
         self.assertEqual(hash(self.__f1), self.__f1.id)
         self.assertEqual(self.__f1.show(), "Id: 1, Titlu: Arthur, Descriere: fain, Gen: actiune")
 
@@ -63,8 +63,8 @@ class TestClient(unittest.TestCase):
         self.assertEqual(self.__c1 == self.__c2, False)
         self.__c3 = self.__c1
         self.assertEqual(self.__c1, self.__c3)
-        self.assertEqual(str(self.__c1), "1,Daniel,1111111111111")
-        self.assertEqual(self.__c1, Client.fromStr("1,Daniel,1111111111111"))
+        self.assertEqual(str(self.__c1), "1\nDaniel\n1111111111111")
+        self.assertEqual(self.__c1, Client.fromStr("1\nDaniel\n1111111111111"))
         self.assertEqual(hash(self.__c1), self.__c1.id)
         self.assertEqual(self.__c1.show(), "Id: 1, Nume: Daniel, Cnp: 1111111111111")
 
@@ -89,8 +89,8 @@ class TestInchiriereDto(unittest.TestCase):
         self.__i3 = self.__i1
         self.assertFalse(self.__i1 != self.__i3)
         self.assertTrue(self.__i1.id == self.__i3.id)
-        self.assertEqual(self.__i1, InchiriereDto.fromStr("4,1"))
-        self.assertEqual(str(self.__i1), "4,1")
+        self.assertEqual(self.__i1, InchiriereDto.fromStr("4\n1"))
+        self.assertEqual(str(self.__i1), "4\n1")
         self.assertEqual(hash(self.__i1), self.__i1.id_film ^ self.__i1.id_client)
 
     def test_validator(self):

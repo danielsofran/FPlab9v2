@@ -31,7 +31,7 @@ class Client(object):
         return f"Id: {self.id}, Nume: {self.nume}, Cnp: {self.cnp}"
 
     def __str__(self): # functie pentru codarea unui client sub forma de string
-        return f"{self.id},{self.nume},{self.cnp}"
+        return f"{self.id}\n{self.nume}\n{self.cnp}"
 
     def __eq__(self, other): # operator egalitate
         return self.id == other.id
@@ -41,7 +41,7 @@ class Client(object):
 
     @classmethod
     def fromStr(cls, str): # functie de convertire din string
-        sir = str.split(',')
+        sir = str.split('\n')
         return cls(int(sir[0]), sir[1], sir[2])
 
 

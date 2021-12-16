@@ -98,7 +98,7 @@ class TestRepoInchirieriDto(unittest.TestCase):
     def test_adauga(self):
         self.assertEqual(len(self.r), 0)
         self.r.adauga(self.l[0])
-        self.assertEqual(len(self.r), 1)
+        self.assertEqual(len(self.r.get_all()), 1)
         self.assertEqual(self.r.get_all()[0], self.l[0])
         self.assertRaises(DuplicatedIDError, self.r.adauga, InchiriereDto(1, 2))
         self.assertRaises(TypeError, self.r.adauga, 1)
