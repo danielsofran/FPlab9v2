@@ -2,6 +2,7 @@ import functools
 
 from Domain.inchirieredto import InchiriereDto
 from Validator.validator import ValidatorInchiriereDto
+from Service.sortari import mysorted
 
 class ServiceInchiriere:
     def __init__(self, repoinchiriere, repoclient, repofilm): # constructor
@@ -58,7 +59,7 @@ class ServiceInchiriere:
 
     def raport_clienti_cu_filme_dupa_nume(self): # clientii ordonati dupa nume, nr de filme inchiriate, cu filmele respective
         rel = self.__filme_per_client()
-        keys = sorted(rel, key=lambda client: client.nume)
+        keys = mysorted(list(rel.keys()), key=lambda client: client.nume)
         rez = {}
         for elem in keys:
             rez[elem] = rel[elem]
@@ -66,7 +67,7 @@ class ServiceInchiriere:
 
     def raport_clienti_cu_filme_dupa_nr_filmelor(self): # clientii ordonati dupa nume, nr de filme inchiriate, cu filmele respective
         rel = self.__filme_per_client()
-        keys = sorted(rel, key=lambda client: len(rel[client]))
+        keys = mysorted(list(rel.keys()), key=lambda client: len(rel[client]))
         rez = {}
         for elem in keys:
             rez[elem] = rel[elem]
@@ -74,7 +75,7 @@ class ServiceInchiriere:
 
     def raport_filme_inchiriate(self): # cele mai inchiriate filme, returneaza lista de filme
         rez = self.__clienti_per_film()
-        rez = sorted(rez, key=lambda film: len(rez[film]), reverse=True)
+        rez = mysorted(list(rez.keys()), key=lambda film: len(rez[film]), reverse=True)
         return rez
 
     def raport_primii_clienti_cu_cele_mai_multe_filme(self): # primiii 30% clienti_cu_cele_mai_multe_filme
@@ -83,7 +84,7 @@ class ServiceInchiriere:
             :rtype: list of tuples (nume_client, nr_de_filme_inchiriate)
         '''
         rel = self.__filme_per_client()
-        keys = sorted(rel, key=lambda client: len(rel[client]), reverse=True)
+        keys = mysorted(list(rel.keys()), key=lambda client: len(rel[client]), reverse=True)
         rez = []
         length = round(len(rel)*30/100)
         for elem in keys[:length]:
@@ -93,26 +94,17 @@ class ServiceInchiriere:
     def raport_cele_mai_putin_inchiriate_filme_care_incep_cu_un_string_dat(self, string_dat):
         # 50% cele_mai_putin_inchiriate_filme_care_incep_cu_un_string_dat
         rel = self.__clienti_per_film()
-        def cmp(film1, film2):
-            if len(rel[film1]) > len(rel[film2]):
-                return -1
-            elif len(rel[film1]) > len(rel[film2]):
-                return 1
-            else:
-                if film1.titlu < film2.titlu:
-                    return -1
-                elif film1.titlu > film2.titlu:
-                    return 1
-                return 0
-        filme = sorted(rel, key=functools.cmp_to_key(cmp))
+        filme = mysorted(list(rel.keys()), key=lambda film: len(rel[film]))
         to_remove = []
         for elem in filme:
             if not elem.titlu.startswith(string_dat):
                 to_remove.append(elem)
         for elem in to_remove:
             filme.remove(elem)
+        filme = mysorted(filme, key=lambda film: film.titlu)
         length = round(len(filme) * 50 / 100)
         filme = filme[:length]
+
         return filme
 
 

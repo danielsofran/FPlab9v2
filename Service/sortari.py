@@ -303,9 +303,9 @@ def test():
             assert sortare(l1) == sorted(l1)
             assert sortare(l1, key=lambda x: x%10) == sorted(l1, key=lambda x: x%10)
             assert sortare(l1, key=lambda x: x%10, reverse=True) == sorted(l1, key=lambda x: x%10, reverse=True)
-        print(f"Gata testul {i}!")
+        #print(f"Gata testul {i}!")
 
 test()
 
-mysorted = bubblesort
+mysorted = quicksort
 
